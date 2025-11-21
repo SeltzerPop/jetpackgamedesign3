@@ -5,12 +5,15 @@ using UnityEngine;
 public class playercontroller : MonoBehaviour
 {
     Rigidbody2D rb;
+    public Transform spawnPoint;
     public float jumpForce;
     public float speed;
     public bool flight;
     public bool burst;
     public bool stuck;
-    
+    public GameManager gm;
+    public int score;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +68,7 @@ public class playercontroller : MonoBehaviour
         if (collision.gameObject.tag.Equals("deadly"))
         {
             Debug.Log("died");
-            transform.position = new Vector3 (0,0,-10);
+            transform.position = spawnPoint.position;
         }
         
         if (collision.gameObject.tag.Equals("sticky"))
@@ -73,7 +76,13 @@ public class playercontroller : MonoBehaviour
             stuck = true;
             Debug.Log("stuck");
         }
-       
+        if (collision.gameObject.tag.Equals("coin"))
+        {
+            gm.score++;
+            Destroy(collision.gameObject);
+            
+        }
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)

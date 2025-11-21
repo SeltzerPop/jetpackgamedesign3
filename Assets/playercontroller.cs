@@ -9,6 +9,7 @@ public class playercontroller : MonoBehaviour
     public float speed;
     public bool flight;
     public bool burst;
+    public bool stuck;
     
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,9 @@ public class playercontroller : MonoBehaviour
 
         Vector2 vel = new Vector2(0,rb.linearVelocity.y);
 
-        if ((Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow)) && burst == false)
+       
+
+        if (((Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow)) && burst == false) && stuck == false)
         {
             vel = new Vector2(rb.linearVelocity.x, jumpForce);
             flight = true;
@@ -56,6 +59,7 @@ public class playercontroller : MonoBehaviour
        
         
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag.Equals("deadly"))
@@ -63,5 +67,21 @@ public class playercontroller : MonoBehaviour
             Debug.Log("died");
             transform.position = new Vector3 (0,0,-10);
         }
-   }
+        
+        if (collision.gameObject.tag.Equals("sticky"))
+        {
+            stuck = true;
+            Debug.Log("stuck");
+        }
+       
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Equals("sticky"))
+        {
+            stuck = false;
+            Debug.Log("unstuck");
+        }
+    }
 }

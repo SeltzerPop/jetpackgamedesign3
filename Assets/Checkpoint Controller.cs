@@ -17,9 +17,12 @@ public class CheckpointController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("checkpoint reached");
         if (collision.gameObject.tag.Equals("Player"))
         {
             collision.gameObject.GetComponent<playercontroller>().spawnPoint = transform;
+            Debug.Log("checkpoint set");
+
         }
     }
 }

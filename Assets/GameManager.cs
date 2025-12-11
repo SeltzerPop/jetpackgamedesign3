@@ -21,10 +21,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         scoreText.text = "Score: " + score;
-        if (score == 21)
-        {
-            SceneManager.LoadScene(2);
-        }
+        
         
     }
 }

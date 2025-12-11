@@ -79,6 +79,7 @@ public class playercontroller : MonoBehaviour
         if (collision.gameObject.tag.Equals("coin"))
         {
             gm.score++;
+            Debug.Log("hit coin");
             Destroy(collision.gameObject);
             
         }
